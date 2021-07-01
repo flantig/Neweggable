@@ -14,7 +14,10 @@ public class Shuffleable {
 
 
     /**
-     * Loads up the page for the Newegg Shuffle. Sometimes the page redirects you to the signin page. It uses the functions in SignInAble to try signing into
+     * Loads up the page for the Newegg Shuffle. Handles before/after shuffle event pop-ups and product listings.
+     * Before/After listings do not have a dropdown but when the event is live the dropdown functionality is active and have clickable events.
+     *
+     * Sometimes the page redirects you to the signin page. It uses the functions in SignInAble to try signing into
      * the account stored within the config file. It doesn't completely sign in as of writing this email but I plan to integrate GMAIL api to fetch the 2-factor authentication
      * pin that is sent to the account upon attempting to sign-in.
      *
