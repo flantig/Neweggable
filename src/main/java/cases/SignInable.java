@@ -1,9 +1,6 @@
 package cases;
 
-import Utilities.Setupinator;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
+import utilities.Setupinator;
 
 import java.io.IOException;
 import java.util.Properties;

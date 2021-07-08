@@ -1,6 +1,6 @@
 package cases;
 
-import Utilities.Selectinator;
+import utilities.Selectinator;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
