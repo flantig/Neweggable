@@ -1,5 +1,6 @@
 package utilities;
 
+import exceptions.NoInputFound;
 import models.Product;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -12,13 +13,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
 public class Selectinator {
-    static ChromeDriver driver;
-    static WebDriverWait wait;
+    public static ChromeDriver driver;
+    public static WebDriverWait wait;
 
 
     public Selectinator(ChromeDriver driver, WebDriverWait wait) throws IOException {
@@ -27,19 +29,40 @@ public class Selectinator {
     }
 
     /**
-     * A general purpose function to check if a clickable element exists, it likely doesn't exist if it runs past the timeout passed.
+     * A general purpose function to check if a element exists and then if it's clickable, it likely doesn't exist if it runs past the timeout passed.
      *
-     * @param selector A CSS selector that may be clickable
+     * @param by A selector that may be clickable
+     * @param elemInput The WebElement we want to start off with
      * @return True if the clickable element exists, false if it doesn't
      */
-    public boolean checkIfClickable(String selector) {
+    public boolean checkIfClickable(By by, WebElement elemInput) {
+
         try {
-            WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(selector)));
-        } catch (TimeoutException e) {
+            wait.until(ExpectedConditions.elementToBeClickable(elemInput.findElement(by)));
+        } catch (TimeoutException | NoSuchElementException e) {
             return false;
         }
+
         return true;
     }
+
+    /**
+     *
+     *
+     * @param by A selector that may be clickable
+     * @return True if the clickable element exists, false if it doesn't
+     */
+    public boolean checkIfClickable(By by){
+
+        try {
+            wait.until(ExpectedConditions.elementToBeClickable(by));
+        } catch (TimeoutException | NoSuchElementException e) {
+            return false;
+        }
+
+        return true;
+    }
+
 
     /**
      * The primary intent for this function is to find all of the items/products within a div. Some pages have expandable divs listing out different bundles and this
@@ -83,7 +106,6 @@ public class Selectinator {
      * @return A matryoshka of lists, the third list exists due to the possibility of bundles. This unfortunately means prices will be stored into a list.
      */
     public List<List<List<String>>> retrieveAllProducts(String starterClassName, String... innerClassNames) {
-        List<List<String>> products = new ArrayList<>();
         List<WebElement> starter = allElementsByClass(starterClassName);
         List<List<String>> productTitles;
         List<List<List<String>>> allInfo = new ArrayList<>();

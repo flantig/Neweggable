@@ -30,12 +30,12 @@ public class Shuffleable {
         utils = new Selectinator(driver, wait);
         utils.getURL(newEggShuffle);
 
-        if (utils.checkIfClickable("#labeled-input-signEmail"))
+        if (utils.checkIfClickable(By.cssSelector("#labeled-input-signEmail")))
             utils.signIn();
 
         //If we arrive early or late in the shuffle we get a pop-up. We get two possible selectors that can determine this. If it's neither we simply set the element to null and check it later.
-        WebElement element = utils.checkIfClickable("#Popup_Later_Visit > div > div > div.modal-header > button") ? driver.findElement(By.cssSelector("#Popup_Later_Visit > div > div > div.modal-header > button")) :
-                (utils.checkIfClickable("#Popup_Early_Visit > div > div > div.modal-header > button") ? driver.findElement(By.cssSelector("#Popup_Early_Visit > div > div > div.modal-header > button")) : null);
+        WebElement element = utils.checkIfClickable(By.cssSelector("#Popup_Later_Visit > div > div > div.modal-header > button")) ? driver.findElement(By.cssSelector("#Popup_Later_Visit > div > div > div.modal-header > button")) :
+                (utils.checkIfClickable(By.cssSelector("#Popup_Early_Visit > div > div > div.modal-header > button")) ? driver.findElement(By.cssSelector("#Popup_Early_Visit > div > div > div.modal-header > button")) : null);
 
         if (element != null)
             element.click();
